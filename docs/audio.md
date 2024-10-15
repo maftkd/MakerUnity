@@ -29,6 +29,8 @@ Code Examples
 
 // an example of how to add a sound effect to a room
 
+Room403.SetSoundEffect(sounds.applause);
+
 
 ```
 
