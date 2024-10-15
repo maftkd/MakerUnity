@@ -17,3 +17,16 @@ Sound Effect Library
 |Jazz               |`Sounds.FunkyJazz`       |<audio controls="0" src="res/FunkyJazz.wav"></audio>
 |Students Talking   |`Sounds.TalkingStudents` |<audio controls="0" src="res/TalkingStudents.wav"></audio>
 |Thunderstorm       |`Sounds.Thunderstorm`    |<audio controls="0" src="res/Thunderstorm.wav"></audio>
+
+
+Code Examples
+-------------
+
+```csharp
+
+
+// an example of how to add a sound effect to a room
+
+
+```
+
