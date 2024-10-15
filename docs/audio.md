@@ -9,14 +9,16 @@ library of sound effects.
 Sound Effect Library
 --------------------
 
+
+
 |Sound              | Code                    | Listen
 |-------------------|-------------------------|-------
-|Applause           |`Sounds.Applause`        |<audio controls="0" src="res/Applause.wav"></audio>
-|Barking Dog        |`Sounds.BarkingDog`      |<audio controls="0" src="res/BarkingDog.wav"></audio>
-|Fire Alarm         |`Sounds.FireAlarm`       |<audio controls="0" src="res/FireAlarm.wav"></audio>
-|Jazz               |`Sounds.FunkyJazz`       |<audio controls="0" src="res/FunkyJazz.wav"></audio>
-|Students Talking   |`Sounds.TalkingStudents` |<audio controls="0" src="res/TalkingStudents.wav"></audio>
-|Thunderstorm       |`Sounds.Thunderstorm`    |<audio controls="0" src="res/Thunderstorm.wav"></audio>
+|Applause           |`Sounds.Applause`        |<audio controls="0" src="https://github.com/adelphi-ed-tech/MakerUnity/raw/refs/heads/main/Assets/Resources/Sounds/Applause.wav"></audio>
+|Barking Dog        |`Sounds.BarkingDog`      |<audio controls="0" src="https://github.com/adelphi-ed-tech/MakerUnity/raw/refs/heads/main/Assets/Resources/Sounds/BarkingDog.wav"></audio>
+|Fire Alarm         |`Sounds.FireAlarm`       |<audio controls="0" src="https://github.com/adelphi-ed-tech/MakerUnity/raw/refs/heads/main/Assets/Resources/Sounds/FireAlarm.wav"></audio>
+|Jazz               |`Sounds.FunkyJazz`       |<audio controls="0" src="https://github.com/adelphi-ed-tech/MakerUnity/raw/refs/heads/main/Assets/Resources/Sounds/FunkyJazz.wav"></audio>
+|Students Talking   |`Sounds.TalkingStudents` |<audio controls="0" src="https://github.com/adelphi-ed-tech/MakerUnity/raw/refs/heads/main/Assets/Resources/Sounds/TalkingStudents.wav"></audio>
+|Thunderstorm       |`Sounds.Thunderstorm`    |<audio controls="0" src="https://github.com/adelphi-ed-tech/MakerUnity/raw/refs/heads/main/Assets/Resources/Sounds/Thunderstorm.wav"></audio>
 
 
 Code Examples
