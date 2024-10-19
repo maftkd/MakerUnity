@@ -12,6 +12,7 @@ public class RoomScripter : MonoBehaviour
     void Start()
     {
         roomManager = FindObjectOfType<RoomManager>();
+
     }
 
 }

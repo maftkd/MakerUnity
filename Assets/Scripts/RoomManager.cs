@@ -39,7 +39,7 @@ public class RoomManager : MonoBehaviour
         InitializeRoom("410A", "410A_floor", "410A_ceiling", new string[] { "410A_wall1", "410A_wall2", "410A_wall3", "410A_wall4" }, "410A_collider");
         InitializeRoom("410B", "410B_floor", "410B_ceiling", new string[] { "410B_wall1", "410B_wall2", "410B_wall3", "410B_wall4" }, "410B_collider");
         InitializeRoom("410C", "410C_floor", "410C_ceiling", new string[] { "410C_wall1", "410C_wall2", "410C_wall3", "410C_wall4", "410C_wall5" }, "410C_collider");
-        InitializeRoom("principalsOffice", "PO_floor", "PO_ceiling", new string[] { "PO_wall1", "PO_wall2", "PO_wall3", "PO_wall4" }, "PO_collider");
+        InitializeRoom("PO", "PO_floor", "PO_ceiling", new string[] { "PO_wall1", "PO_wall2", "PO_wall3", "PO_wall4" }, "PO_collider");
         InitializeRoom("Thrift", "Thrift_floor", "Thrift_ceiling", new string[] { "Thrift_wall1", "Thrift_wall2", "Thrift_wall3", "Thrift_wall4" }, "Thrift_collider");
     }
 

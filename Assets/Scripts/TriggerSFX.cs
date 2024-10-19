@@ -18,7 +18,7 @@ public class TriggerSFX : MonoBehaviour
     }
 
     private void OnTriggerEnter(Collider other)
-    { 
+    {
         // Check if the collider belongs to player
         if (other.CompareTag("Player"))
         {
