@@ -63,6 +63,14 @@ public class Room : ScriptableObject
         }
     }
 
+    public void SetAllWallsTexture(Texture myTexture)
+    {
+        for (int i=0; i < WallRenderers.Count; i++)
+        {
+            SetTexture(WallRenderers[i], myTexture);
+        }
+    }
+
     private void SetTexture(Renderer rend, Texture myTexture)
     {
 
