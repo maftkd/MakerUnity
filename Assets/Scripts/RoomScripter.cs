@@ -41,7 +41,7 @@ public class RoomScripter : MonoBehaviour
         Room407.SetAllWallsTexture(textures.brick);
         Room407.SetFloorTexture(textures.grass);
         Room407.SetCeilingTexture(textures.water);
-        Room407.SetSoundEffect(sounds.applause);
+        Room407.SetSoundEffect(sounds.talkingStudents);
         Room407.SpawnSpheres("blue", 3);
 
 
@@ -119,9 +119,11 @@ public class RoomScripter : MonoBehaviour
 
         // Room 425
         Room Room425 = roomManager.GetRoomByName("425");
-        Room425.SetAllWallsTexture(textures.wood);
-        Room425.SetFloorTexture(textures.lava);
-        Room425.SetCeilingTexture(textures.sand);
+        Room425.SetAllWallsTexture(textures.water);
+        Room425.SetFloorTexture(textures.water);
+        Room425.SetCeilingTexture(textures.water);
+        Room425.SetSoundEffect(sounds.talkingStudents);
+        Room425.SpawnSpheres("green", 30);
 
 
         // Room 427
@@ -206,7 +208,7 @@ public class RoomScripter : MonoBehaviour
         Room444.SetAllWallsTexture(textures.bones);
         Room444.SetFloorTexture(textures.cobblestone);
         Room444.SetCeilingTexture(textures.forest);
-        Room415.SetSoundEffect(sounds.barkingDog);
+        Room415.SetSoundEffect(sounds.talkingStudents);
         Room415.SpawnSpheres("red", 2);
 
 
@@ -271,7 +273,7 @@ public class RoomScripter : MonoBehaviour
         Thrift.SetAllWallsTexture(textures.bones);
         Thrift.SetFloorTexture(textures.sand);
         Thrift.SetCeilingTexture(textures.ice);
-        Thrift.SetSoundEffect(sounds.funkyJazz);
+        Thrift.SetSoundEffect(sounds.talkingStudents);
         Thrift.SpawnSpheres("green", 2);
     }
 
