@@ -86,4 +86,26 @@ public class RoomManager : MonoBehaviour
             return null;
         }
     }
+
+    //use this to visualize some data about each room
+    private void OnDrawGizmos()
+    {
+        if (roomDictionary == null)
+        {
+            return;
+        }
+        foreach (Room room in roomDictionary.Values)
+        {
+            if (room.Ceiling != null)
+            {
+                Gizmos.color = Color.red;
+                Mesh ceilingMesh = room.Ceiling.GetComponent<MeshFilter>().sharedMesh;
+                foreach (Vector3 vert in ceilingMesh.vertices)
+                {
+                    Vector3 globalPoint = room.Ceiling.transform.TransformPoint(vert);
+                    Gizmos.DrawSphere(globalPoint, 1f);
+                }
+            }
+        }
+    }
 }
