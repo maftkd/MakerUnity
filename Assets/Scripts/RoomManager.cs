@@ -98,13 +98,25 @@ public class RoomManager : MonoBehaviour
         {
             if (room.Ceiling != null)
             {
-                Gizmos.color = Color.red;
                 Mesh ceilingMesh = room.Ceiling.GetComponent<MeshFilter>().sharedMesh;
-                foreach (Vector3 vert in ceilingMesh.vertices)
+                for(int i = 0; i < ceilingMesh.vertices.Length; i++)
                 {
-                    Vector3 globalPoint = room.Ceiling.transform.TransformPoint(vert);
-                    Gizmos.DrawSphere(globalPoint, 1f);
+                    float i01 = (float)i / (ceilingMesh.vertices.Length - 1);
+                    i01 *= 0.5f;
+                    Color col = Color.HSVToRGB(i01, 1, 1);
+                    Gizmos.color = col;
+                    Vector3 globalPoint = room.Ceiling.transform.TransformPoint(ceilingMesh.vertices[i]);
+                    Gizmos.DrawSphere(globalPoint, 0.2f);
                 }
+
+                Vector3 origin = room.Ceiling.transform.TransformPoint(ceilingMesh.vertices[0]);
+                Vector3 next = room.Ceiling.transform.TransformPoint(ceilingMesh.vertices[1]);
+                Vector3 localRight = (next - origin).normalized;
+                Vector3 localUp = Vector3.Cross(localRight, Vector3.up).normalized;
+                Gizmos.color = Color.red;
+                Gizmos.DrawLine(origin + Vector3.up, origin + Vector3.up + localRight);
+                Gizmos.color = Color.green;
+                Gizmos.DrawLine(origin + Vector3.up, origin + Vector3.up + localUp);
             }
         }
     }
