@@ -76,18 +76,13 @@ public class Room : ScriptableObject
 
         if (myTexture != null)
         {
-            // Create new material
-            Material material = new Material(Shader.Find("Standard"));
-            material.mainTexture = myTexture;
-
-            if (rend != null)
+            if (rend != null && rend.material != null)
             {
-                // Assign new material to renderer
-                rend.material = material;
+                rend.material.mainTexture = myTexture;
             }
             else
             {
-                Debug.LogError("Renderer Component not found");
+                Debug.LogError("Renderer Component not found or material missing");
             }
         }
         else
