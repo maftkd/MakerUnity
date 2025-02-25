@@ -97,7 +97,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 0}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: 43a2dcb3312f54ced98422c677409784, type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -1638,12 +1638,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44bc4e70c764d4e35a6d0f031870aece, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  applause: {fileID: 0}
-  barkingDog: {fileID: 0}
-  fireAlarm: {fileID: 0}
-  funkyJazz: {fileID: 0}
   talkingStudents: {fileID: 0}
   thunderstorm: {fileID: 0}
+  whales: {fileID: 0}
+  screaming: {fileID: 0}
+  waterflow: {fileID: 0}
+  squeakyMetal: {fileID: 0}
+  windChimes: {fileID: 0}
+  hyenas: {fileID: 0}
+  rumbling: {fileID: 0}
+  horrorTone: {fileID: 0}
+  piercingStatic: {fileID: 0}
+  cricketsInTheRain: {fileID: 0}
 --- !u!4 &358748522
 Transform:
   m_ObjectHideFlags: 0
@@ -5373,6 +5379,7 @@ GameObject:
   - component: {fileID: 963194227}
   - component: {fileID: 963194226}
   - component: {fileID: 963194229}
+  - component: {fileID: 963194230}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -5469,6 +5476,19 @@ MonoBehaviour:
   sensX: 1200
   sensY: 1200
   orientation: {fileID: 1144568849}
+--- !u!114 &963194230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963194225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 204ebbef60e0548d3816fd80ecf6f02b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shader: {fileID: 4800000, guid: 4fb7f9abcaa114e8693c1d707ba28c3a, type: 3}
 --- !u!1 &971346630 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -4819223349682164798, guid: 80ed7ac95b6fe425f9d42bc3f0449085, type: 3}
@@ -10831,6 +10851,10 @@ PrefabInstance:
     - target: {fileID: -5306108129069037688, guid: 80ed7ac95b6fe425f9d42bc3f0449085, type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4819223349682164798, guid: 80ed7ac95b6fe425f9d42bc3f0449085, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -4558843044228782287, guid: 80ed7ac95b6fe425f9d42bc3f0449085, type: 3}
       propertyPath: m_Enabled
