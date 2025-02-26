@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Moods = LightingHelper.Moods;
 
 [CreateAssetMenu(menuName = "Classrooms")]
@@ -17,6 +18,12 @@ public class Room : ScriptableObject
     private List<Renderer> WallRenderers;
     private AudioSource AudioSource;
     private int moodIndex;
+    
+    //frame of reference
+    public Vector3 origin;
+    public Vector3 xAxis;
+    public Vector3 zAxis;
+    public Vector2 size;
 
     public void Setup(GameObject floor, GameObject ceiling, List<GameObject> walls, GameObject collider)
     {
@@ -31,6 +38,8 @@ public class Room : ScriptableObject
         int numMoods = Enum.GetNames(typeof(Moods)).Length;
         Moods randomMood = (Moods)UnityEngine.Random.Range(0, numMoods);
         SetMood(randomMood);
+
+        CalculateLocalBoundingBox();
     }
 
     private void InitializeRenderers()
@@ -158,6 +167,42 @@ public class Room : ScriptableObject
         foreach(Renderer wallRenderer in WallRenderers)
         {
             wallRenderer.material.SetInt("_MoodIndex", moodIndex);
+        }
+    }
+
+    // this method will help determine axis-aligned bounding box for the room
+    // and will be used to place lights and other things
+    // It is somewhat complicated b/c geometry has a single origin, same orientation, and scale x100
+    // Uses ceiling mesh to determine position, orientation, and scale
+    void CalculateLocalBoundingBox()
+    {
+        if (Ceiling != null)
+        {
+            Mesh ceilingMesh = Ceiling.GetComponent<MeshFilter>().sharedMesh;
+
+            if (ceilingMesh.isReadable)
+            {
+                Debug.Log("Got bounds");
+                //arbitrarily choose first vertex as origin
+                origin = Ceiling.transform.TransformPoint(ceilingMesh.vertices[0]);
+                //arbitrarily choose second vertex as x-axis
+                Vector3 next = Ceiling.transform.TransformPoint(ceilingMesh.vertices[1]);
+                
+                xAxis = (next - origin).normalized;
+                zAxis = Vector3.Cross(xAxis, Vector3.up).normalized;
+
+                size = Vector2.zero;
+                foreach(Vector3 vert in ceilingMesh.vertices)
+                {
+                    Vector3 globalPoint = Ceiling.transform.TransformPoint(vert);
+                    Vector3 localVector = globalPoint - origin;
+                    Vector3 xProject = Vector3.Project(localVector, xAxis);
+                    size.x = Mathf.Max(size.x, xProject.magnitude);
+                    Vector3 zProject = Vector3.Project(localVector, zAxis);
+                    size.y = Mathf.Max(size.y, zProject.magnitude);
+                }
+            }
+
         }
     }
 }

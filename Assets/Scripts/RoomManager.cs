@@ -117,6 +117,15 @@ public class RoomManager : MonoBehaviour
                 Gizmos.DrawLine(origin + Vector3.up, origin + Vector3.up + localRight);
                 Gizmos.color = Color.green;
                 Gizmos.DrawLine(origin + Vector3.up, origin + Vector3.up + localUp);
+                
+                if (room.size != Vector2.zero)
+                {
+                    Gizmos.color = Color.blue;
+                    Gizmos.DrawLine(room.origin + Vector3.up, room.origin + room.xAxis * room.size.x + Vector3.up);
+                    Gizmos.DrawLine(room.origin + Vector3.up, room.origin + room.zAxis * room.size.y + Vector3.up);
+                    Gizmos.DrawLine(room.origin + room.xAxis * room.size.x + Vector3.up, room.origin + room.xAxis * room.size.x + room.zAxis * room.size.y + Vector3.up);
+                    Gizmos.DrawLine(room.origin + room.zAxis * room.size.y + Vector3.up, room.origin + room.xAxis * room.size.x + room.zAxis * room.size.y + Vector3.up);
+                }
             }
         }
     }
