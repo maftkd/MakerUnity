@@ -46,6 +46,7 @@ Shader "Custom/RoomSurface"
             o.Metallic = _Metallic;
             o.Smoothness = _Glossiness;
             o.Occlusion = 0;
+            //o.Emission = o.Albedo.rgb * float3(0.4, 0, 0);
             o.Alpha = c.a;
         }
         ENDCG
