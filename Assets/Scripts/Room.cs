@@ -15,6 +15,7 @@ public class Room : ScriptableObject
     private Renderer FloorRenderer;
     private List<Renderer> WallRenderers;
     private AudioSource AudioSource;
+    private int moodIndex;
 
     public void Setup(GameObject floor, GameObject ceiling, List<GameObject> walls, GameObject collider)
     {
@@ -24,6 +25,8 @@ public class Room : ScriptableObject
         Collider = collider;
 
         InitializeRenderers();
+
+        SetMood(LightingHelper.Moods.Default);
     }
 
     private void InitializeRenderers()
@@ -133,7 +136,27 @@ public class Room : ScriptableObject
                 instance.transform.SetLocalPositionAndRotation(floorCenter, Quaternion.Euler(0, 0, 0));
             }
         }
+    }
 
+    public void SetMood(LightingHelper.Moods mood)
+    {
+        //LightingHelper.Instance.SetMood(this, mood);
+        moodIndex = (int)mood;
+        
+        Debug.Log($"Setting room {name} to mood {moodIndex}");
+        
+        if (FloorRenderer != null)
+        {
+            FloorRenderer.material.SetInt("_MoodIndex", moodIndex);
+        }
+        if(CeilingRenderer != null)
+        {
+            CeilingRenderer.material.SetInt("_MoodIndex", moodIndex);
+        }
+        foreach(Renderer wallRenderer in WallRenderers)
+        {
+            wallRenderer.material.SetInt("_MoodIndex", moodIndex);
+        }
     }
 }
 

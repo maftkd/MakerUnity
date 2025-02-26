@@ -6,6 +6,7 @@ Shader "Custom/RoomSurface"
         _MainTex ("Albedo (RGB)", 2D) = "white" {}
         _Glossiness ("Smoothness", Range(0,1)) = 0.5
         _Metallic ("Metallic", Range(0,1)) = 0.0
+        [HideInInspector]_MoodIndex ("Mood Index", Int) = 0
     }
     SubShader
     {
@@ -30,6 +31,10 @@ Shader "Custom/RoomSurface"
         half _Metallic;
         fixed4 _Color;
 
+        float4 _AmbientColors[32];
+        
+        int _MoodIndex;
+
         // Add instancing support for this shader. You need to check 'Enable Instancing' on materials that use the shader.
         // See https://docs.unity3d.com/Manual/GPUInstancing.html for more information about instancing.
         // #pragma instancing_options assumeuniformscaling
@@ -46,7 +51,8 @@ Shader "Custom/RoomSurface"
             o.Metallic = _Metallic;
             o.Smoothness = _Glossiness;
             o.Occlusion = 0;
-            //o.Emission = o.Albedo.rgb * float3(0.4, 0, 0);
+            float4 ambientCol = _AmbientColors[_MoodIndex];
+            o.Emission = o.Albedo.rgb * ambientCol.rgb * 0.1;
             o.Alpha = c.a;
         }
         ENDCG

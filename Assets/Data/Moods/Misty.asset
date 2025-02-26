@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67a7b4800156a4700bf28c271339eeb9, type: 3}
   m_Name: Misty
   m_EditorClassIdentifier: 
-  ambientColor: {r: 0.28257388, g: 0.46571326, b: 0.4716981, a: 0}
+  ambientColor: {r: 1, g: 0, b: 0, a: 0}
