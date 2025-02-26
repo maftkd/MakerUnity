@@ -58,7 +58,6 @@ public class LightingHelper : MonoBehaviour
 	    // reposition lights
 	    foreach (Room room in roomManager.GetRoomList())
 	    {
-		    room.lightPosTemp.Clear();
 		    SpawnPointLights(room, (Moods)room.moodIndex);
 	    }
 	    
@@ -67,12 +66,15 @@ public class LightingHelper : MonoBehaviour
 
     public void SpawnPointLights(Room room, Moods mood)
     {
+	    // clear old lights
+		// might be more efficient to pool, we shall see...
+		room.lightPosTemp.Clear();
+		for (int i = room.Ceiling.transform.childCount - 1; i >= 0; i--)
+		{
+			GameObject.Destroy(room.Ceiling.transform.GetChild(i).gameObject);
+		}
+		
 	    Mood myMood = moods[(int)mood];
-
-	    float surfaceArea = room.GetSurfaceArea();
-	    int numLights = (int)(surfaceArea * myMood.lightSourceDensity);
-
-	    //Debug.Log($"Spawning {numLights} lights");
 	    
 	    float gridSize = Mathf.Sqrt(1f / myMood.lightSourceDensity);
 	    int numCols = Mathf.FloorToInt(room.size.x / gridSize);
@@ -92,6 +94,15 @@ public class LightingHelper : MonoBehaviour
 			    Vector3 pos = gridStart + room.xAxis * (x * gridSize) + room.zAxis * (y * gridSize);
 			    room.lightPosTemp.Add(pos);
 		    }
+	    }
+
+	    foreach (Vector3 pos in room.lightPosTemp)
+	    {
+		    GameObject pointLight = new GameObject("Point Light");
+		    pointLight.transform.position = pos;
+		    Light light = pointLight.AddComponent<Light>();
+		    light.type = LightType.Point;
+		    pointLight.transform.SetParent(room.Ceiling.transform);
 	    }
     }
 }

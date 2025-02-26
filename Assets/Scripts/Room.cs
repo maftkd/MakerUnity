@@ -210,11 +210,6 @@ public class Room : ScriptableObject
             }
         }
     }
-    
-    public float GetSurfaceArea()
-    {
-        return size.x * size.y;
-    }
 }
 
 
