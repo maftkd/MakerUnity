@@ -52,7 +52,7 @@ Shader "Custom/RoomSurface"
             o.Smoothness = _Glossiness;
             o.Occlusion = 0;
             float4 ambientCol = _AmbientColors[_MoodIndex];
-            o.Emission = o.Albedo.rgb * ambientCol.rgb * 0.1;
+            o.Emission = o.Albedo.rgb * ambientCol.rgb;
             o.Alpha = c.a;
         }
         ENDCG

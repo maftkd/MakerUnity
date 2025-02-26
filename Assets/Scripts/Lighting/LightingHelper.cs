@@ -30,16 +30,29 @@ public class LightingHelper : MonoBehaviour
 	        ambientColors[i] = Vector4.zero;
         }
 
+        SetAmbientColors();
+    }
+
+    Vector4 ColorToVec4(Color c)
+    {
+	    return new Vector4(c.r, c.g, c.b, c.a);
+    }
+
+    void SetAmbientColors()
+    {
         for (int i = 0; i < moods.Length && i < 32; i++)
         {
 	        ambientColors[i] = ColorToVec4(moods[i].ambientColor);
         }
         
         Shader.SetGlobalVectorArray("_AmbientColors", ambientColors);
+	    
     }
 
-    Vector4 ColorToVec4(Color c)
+    public void UpdateLightingData()
     {
-	    return new Vector4(c.r, c.g, c.b, c.a);
+	    SetAmbientColors();
+	    
+	    //todo - set other colors if needed?
     }
 }

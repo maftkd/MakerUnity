@@ -147,8 +147,6 @@ public class Room : ScriptableObject
         //LightingHelper.Instance.SetMood(this, mood);
         moodIndex = (int)mood;
         
-        Debug.Log($"Setting room {name} to mood {moodIndex}");
-        
         if (FloorRenderer != null)
         {
             FloorRenderer.material.SetInt("_MoodIndex", moodIndex);
