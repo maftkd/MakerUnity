@@ -10,6 +10,8 @@ public class LightingHelper : MonoBehaviour
     public static LightingHelper Instance;
 
     private Vector4[] ambientColors;
+
+    public RoomManager roomManager;
     
     //#hook to auto-generate enum
 	public enum Moods
@@ -53,6 +55,43 @@ public class LightingHelper : MonoBehaviour
     {
 	    SetAmbientColors();
 	    
+	    // reposition lights
+	    foreach (Room room in roomManager.GetRoomList())
+	    {
+		    room.lightPosTemp.Clear();
+		    SpawnPointLights(room, (Moods)room.moodIndex);
+	    }
+	    
 	    //todo - set other colors if needed?
+    }
+
+    public void SpawnPointLights(Room room, Moods mood)
+    {
+	    Mood myMood = moods[(int)mood];
+
+	    float surfaceArea = room.GetSurfaceArea();
+	    int numLights = (int)(surfaceArea * myMood.lightSourceDensity);
+
+	    //Debug.Log($"Spawning {numLights} lights");
+	    
+	    float gridSize = Mathf.Sqrt(1f / myMood.lightSourceDensity);
+	    int numCols = Mathf.FloorToInt(room.size.x / gridSize);
+	    int numRows = Mathf.FloorToInt(room.size.y / gridSize);
+	    
+	    //add a couple rows and columns as a buffer of sorts to help with non rectangular rooms
+	    //numCols += numCols;
+	    //numRows += numRows;
+	    
+	    Vector3 gridStart = room.centerOfMass;
+	    gridStart -= room.xAxis * (((numCols - 1) / 2f) * gridSize);
+	    gridStart -= room.zAxis * (((numRows - 1) / 2f) * gridSize);
+	    for (int y = 0; y < numRows; y++)
+	    {
+		    for (int x = 0; x < numCols; x++)
+		    {
+			    Vector3 pos = gridStart + room.xAxis * (x * gridSize) + room.zAxis * (y * gridSize);
+			    room.lightPosTemp.Add(pos);
+		    }
+	    }
     }
 }

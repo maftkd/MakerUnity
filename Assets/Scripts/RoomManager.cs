@@ -87,6 +87,17 @@ public class RoomManager : MonoBehaviour
         }
     }
 
+    public List<Room> GetRoomList()
+    {
+        //extract rooms from roomDictionary.values
+        List<Room> roomList = new List<Room>();
+        foreach (Room room in roomDictionary.Values)
+        {
+            roomList.Add(room);
+        }
+        return roomList;
+    }
+
     //use this to visualize some data about each room
     private void OnDrawGizmos()
     {
@@ -114,9 +125,12 @@ public class RoomManager : MonoBehaviour
                 Vector3 localRight = (next - origin).normalized;
                 Vector3 localUp = Vector3.Cross(localRight, Vector3.up).normalized;
                 Gizmos.color = Color.red;
-                Gizmos.DrawLine(origin + Vector3.up, origin + Vector3.up + localRight);
+                Gizmos.DrawLine(origin + Vector3.up * 2, origin + Vector3.up * 2 + localRight);
                 Gizmos.color = Color.green;
-                Gizmos.DrawLine(origin + Vector3.up, origin + Vector3.up + localUp);
+                Gizmos.DrawLine(origin + Vector3.up * 2, origin + Vector3.up * 2 + localUp);
+                
+                Gizmos.color = Color.white;
+                Gizmos.DrawSphere(room.centerOfMass, 0.5f);
                 
                 if (room.size != Vector2.zero)
                 {
@@ -125,6 +139,12 @@ public class RoomManager : MonoBehaviour
                     Gizmos.DrawLine(room.origin + Vector3.up, room.origin + room.zAxis * room.size.y + Vector3.up);
                     Gizmos.DrawLine(room.origin + room.xAxis * room.size.x + Vector3.up, room.origin + room.xAxis * room.size.x + room.zAxis * room.size.y + Vector3.up);
                     Gizmos.DrawLine(room.origin + room.zAxis * room.size.y + Vector3.up, room.origin + room.xAxis * room.size.x + room.zAxis * room.size.y + Vector3.up);
+                }
+
+                Gizmos.color = Color.yellow;
+                foreach (Vector3 lp in room.lightPosTemp)
+                {
+                    Gizmos.DrawSphere(lp, 0.5f);
                 }
             }
         }

@@ -13707,7 +13707,7 @@ MonoBehaviour:
   moods:
   - {fileID: 11400000, guid: 1812144a82a3c43f7be8937af4b2b183, type: 2}
   - {fileID: 11400000, guid: 298d247c3f57c42cdbc27a2f2e6d30a2, type: 2}
-  testBox: 0
+  roomManager: {fileID: 70514481}
 --- !u!1 &2089093364 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4682594238620310129, guid: 80ed7ac95b6fe425f9d42bc3f0449085, type: 3}

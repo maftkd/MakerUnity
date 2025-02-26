@@ -6,4 +6,7 @@ using UnityEngine;
 public class Mood : ScriptableObject
 {
     public Color ambientColor;
+    [Tooltip("Units are number of point lights / square meter")]
+    [Range(0, 0.5f)]
+    public float lightSourceDensity;
 }

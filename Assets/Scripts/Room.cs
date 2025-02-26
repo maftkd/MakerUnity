@@ -17,13 +17,15 @@ public class Room : ScriptableObject
     private Renderer FloorRenderer;
     private List<Renderer> WallRenderers;
     private AudioSource AudioSource;
-    private int moodIndex;
+    public int moodIndex;
     
     //frame of reference
     public Vector3 origin;
     public Vector3 xAxis;
     public Vector3 zAxis;
     public Vector2 size;
+    public Vector3 centerOfMass;
+    public List<Vector3> lightPosTemp = new();
 
     public void Setup(GameObject floor, GameObject ceiling, List<GameObject> walls, GameObject collider)
     {
@@ -33,13 +35,13 @@ public class Room : ScriptableObject
         Collider = collider;
 
         InitializeRenderers();
+        
+        CalculateLocalBoundingBox();
 
         // temp - set to a random mood on start
         int numMoods = Enum.GetNames(typeof(Moods)).Length;
         Moods randomMood = (Moods)UnityEngine.Random.Range(0, numMoods);
         SetMood(randomMood);
-
-        CalculateLocalBoundingBox();
     }
 
     private void InitializeRenderers()
@@ -168,6 +170,8 @@ public class Room : ScriptableObject
         {
             wallRenderer.material.SetInt("_MoodIndex", moodIndex);
         }
+        
+        LightingHelper.Instance.SpawnPointLights(this, mood);
     }
 
     // this method will help determine axis-aligned bounding box for the room
@@ -182,7 +186,6 @@ public class Room : ScriptableObject
 
             if (ceilingMesh.isReadable)
             {
-                Debug.Log("Got bounds");
                 //arbitrarily choose first vertex as origin
                 origin = Ceiling.transform.TransformPoint(ceilingMesh.vertices[0]);
                 //arbitrarily choose second vertex as x-axis
@@ -201,9 +204,16 @@ public class Room : ScriptableObject
                     Vector3 zProject = Vector3.Project(localVector, zAxis);
                     size.y = Mathf.Max(size.y, zProject.magnitude);
                 }
+                
+                //calculate centroid of ceiling mesh
+                centerOfMass = Ceiling.transform.TransformPoint(ceilingMesh.bounds.center);
             }
-
         }
+    }
+    
+    public float GetSurfaceArea()
+    {
+        return size.x * size.y;
     }
 }
 
