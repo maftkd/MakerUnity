@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Moods = LightingHelper.Moods;
 
 [CreateAssetMenu(menuName = "Classrooms")]
 public class Room : ScriptableObject
@@ -26,7 +27,10 @@ public class Room : ScriptableObject
 
         InitializeRenderers();
 
-        SetMood(LightingHelper.Moods.Default);
+        // temp - set to a random mood on start
+        int numMoods = Enum.GetNames(typeof(Moods)).Length;
+        Moods randomMood = (Moods)UnityEngine.Random.Range(0, numMoods);
+        SetMood(randomMood);
     }
 
     private void InitializeRenderers()

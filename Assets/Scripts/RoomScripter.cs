@@ -20,7 +20,6 @@ public class RoomScripter : MonoBehaviour
         Room403.SetCeilingTexture(textures.water);
         Room403.SetSoundEffect(sounds.talkingStudents);
         Room403.SpawnSpheres("red", 5);
-        Room403.SetMood(LightingHelper.Moods.Misty);
 
 
         // Room 405
@@ -28,7 +27,6 @@ public class RoomScripter : MonoBehaviour
         Room405.SetAllWallsTexture(textures.brick);
         Room405.SetFloorTexture(textures.grass);
         Room405.SetCeilingTexture(textures.water);
-        Room405.SetMood(LightingHelper.Moods.Misty);
 
 
         // Room 406
@@ -36,7 +34,6 @@ public class RoomScripter : MonoBehaviour
         Room406.SetAllWallsTexture(textures.brick);
         Room406.SetFloorTexture(textures.grass);
         Room406.SetCeilingTexture(textures.water);
-        Room406.SetMood(LightingHelper.Moods.Misty);
 
 
         // Room 407
@@ -190,7 +187,6 @@ public class RoomScripter : MonoBehaviour
         Room439.SetAllWallsTexture(textures.wood);
         Room439.SetFloorTexture(textures.lava);
         Room439.SetCeilingTexture(textures.sand);
-        Room439.SetMood(LightingHelper.Moods.Misty);
 
 
         // Room 441
@@ -255,7 +251,6 @@ public class RoomScripter : MonoBehaviour
         Room457.SetAllWallsTexture(textures.bones);
         Room457.SetFloorTexture(textures.cobblestone);
         Room457.SetCeilingTexture(textures.forest);
-        Room457.SetMood(LightingHelper.Moods.Misty);
 
 
         // Room 459
@@ -263,7 +258,6 @@ public class RoomScripter : MonoBehaviour
         Room459.SetAllWallsTexture(textures.bones);
         Room459.SetFloorTexture(textures.cobblestone);
         Room459.SetCeilingTexture(textures.forest);
-        Room459.SetMood(LightingHelper.Moods.Misty);
 
 
         // Principle's Office
