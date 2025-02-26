@@ -13668,6 +13668,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2069799415}
+  - component: {fileID: 2069799416}
   m_Layer: 0
   m_Name: Lighting
   m_TagString: Untagged
@@ -13691,6 +13692,20 @@ Transform:
   - {fileID: 705667543}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2069799416
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2069799414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e9a2d4ce3e2642ceb0fa8cb88ba5398, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moods:
+  - {fileID: 11400000, guid: 1812144a82a3c43f7be8937af4b2b183, type: 2}
 --- !u!1 &2089093364 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4682594238620310129, guid: 80ed7ac95b6fe425f9d42bc3f0449085, type: 3}
