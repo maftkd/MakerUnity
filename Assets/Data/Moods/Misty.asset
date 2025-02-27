@@ -16,4 +16,3 @@ MonoBehaviour:
   lightSourceDensity: 0.009
   lightColor: {r: 0, g: 0.98080873, b: 1, a: 0}
   lightRadius: 13.93
-  lightIntensity: 1

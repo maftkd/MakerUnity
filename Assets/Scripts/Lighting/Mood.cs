@@ -15,6 +15,4 @@ public class Mood : ScriptableObject
     public Color lightColor;
     [Range(0, 20f)]
     public float lightRadius;
-    [Range(0, 2f)]
-    public float lightIntensity;
 }
