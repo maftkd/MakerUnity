@@ -1516,6 +1516,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 1
   orientation: {fileID: 1144568849}
+  playerCamera: {fileID: 963194229}
 --- !u!54 &251072365
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -6971,6 +6972,8 @@ MonoBehaviour:
   sensY: 1200
   orientation: {fileID: 1144568849}
   debugPos: {fileID: 1038922269}
+  debug: 0
+  debugCamSpeed: 0
 --- !u!114 &963194230
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6997,7 +7000,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shader: {fileID: 4800000, guid: d6edbb9b2d14c4037b8644fc39251d8a, type: 3}
-  numSteps: 7
+  numSteps: 8
 --- !u!1 &971346630 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -4819223349682164798, guid: 80ed7ac95b6fe425f9d42bc3f0449085, type: 3}
@@ -7103,13 +7106,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1038922268}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.46859437, y: 0.15214677, z: -0.08229721, w: 0.8663128}
-  m_LocalPosition: {x: 4.86, y: 43.66, z: -87.76}
+  m_LocalRotation: {x: 0.59149534, y: 0.13831143, z: -0.10388179, w: 0.78753525}
+  m_LocalPosition: {x: 4.86, y: 80, z: -87.76}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2069799415}
-  m_LocalEulerAnglesHint: {x: 56.818, y: 19.922, z: 0}
+  m_LocalEulerAnglesHint: {x: 73.818, y: 19.922, z: 0}
 --- !u!1 &1068891531
 GameObject:
   m_ObjectHideFlags: 0

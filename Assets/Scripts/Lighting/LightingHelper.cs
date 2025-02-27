@@ -67,6 +67,9 @@ public class LightingHelper : MonoBehaviour
         _fogTexture = fogCam.targetTexture;
         Shader.SetGlobalTexture("_FogMap", _fogTexture);
         fogCam.SetReplacementShader(fogMapShader, "RenderType");
+        Vector4 fogCamBounds = new Vector4(fogCam.transform.position.x - fogCam.orthographicSize,
+	        fogCam.transform.position.z - fogCam.orthographicSize, fogCam.orthographicSize * 2, fogCam.orthographicSize * 2);
+        Shader.SetGlobalVector("_FogBounds", fogCamBounds);
     }
 
     Vector4 ColorToVec4(Color c)

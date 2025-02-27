@@ -40,6 +40,7 @@ Shader "Hidden/VolumetricFog"
                 
                 return o;
             }
+
             
             sampler2D _CameraDepthTexture;
             sampler2D _MainTex;
@@ -51,6 +52,26 @@ Shader "Hidden/VolumetricFog"
 
             int _NumSteps;
 
+            float4 _FogBounds;
+            
+            int getRoomCode(float3 worldPos)
+            {
+                float2 uv = (worldPos.xz - _FogBounds.xy) / _FogBounds.z;
+                if(uv.x < 0 || uv.x > 1 || uv.y < 0 || uv.y > 1)
+                {
+                    return -1;
+                }
+                else if(worldPos.y < -1 || worldPos.y > 2)
+                {
+                    return -1;
+                }
+                else
+                {
+                    float roomCodeFrac = tex2Dlod(_FogMap, float4(uv, 0, 0)).r;
+                    return int(round(roomCodeFrac * 255));
+                }
+            }
+
             fixed4 frag (v2f i) : SV_Target
             {
                 fixed4 col = tex2D(_MainTex, i.uv);
@@ -60,6 +81,11 @@ Shader "Hidden/VolumetricFog"
                 float3 viewPos = i.rayDir * LinearEyeDepth(z);
 
                 float3 worldPos = mul(_InverseView, float4(viewPos, 1)).xyz;
+                int roomCode = getRoomCode(worldPos);
+                return float(roomCode) / 255;
+                
+                float2 uv = (worldPos.xz - _FogBounds.xy) / _FogBounds.z;
+                //return float4(uv, 0, 1);
                 
                 float3 rayStart = _WorldSpaceCameraPos;
                 float3 rayEnd = worldPos;
@@ -78,7 +104,7 @@ Shader "Hidden/VolumetricFog"
                     float3 samplePos = rayStart + rayDir * t;
 
                     //temp assume there's fog everywhere
-                    fog += 0.02 * stepSize;
+                    fog += 0.01 * stepSize;
                 }
                 fog = saturate(fog);
                 return lerp(col, 0.5, fog);

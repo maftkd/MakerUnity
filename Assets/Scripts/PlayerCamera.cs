@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class PlayerCam : MonoBehaviour
 {
@@ -15,7 +16,8 @@ public class PlayerCam : MonoBehaviour
     public Transform debugPos;
     private Vector3 _prevPos;
     private Quaternion _prevRot;
-    private bool _debug;
+    public bool debug;
+    public float debugCamSpeed;
 
     void Start()
     {
@@ -25,7 +27,7 @@ public class PlayerCam : MonoBehaviour
 
     void Update()
     {
-        if (!_debug)
+        if (!debug)
         {
             float mouseX = Input.GetAxisRaw("Mouse X") * Time.deltaTime * sensX;
             float mouseY = Input.GetAxisRaw("Mouse Y") * Time.deltaTime * sensY;
@@ -40,17 +42,24 @@ public class PlayerCam : MonoBehaviour
         }
         else
         {
-            transform.position = debugPos.position;
-            transform.rotation = debugPos.rotation;
+            Vector3 pos = transform.position;
+            pos.x += Input.GetAxisRaw("Horizontal") * Time.deltaTime * 10;
+            pos.z += Input.GetAxisRaw("Vertical") * Time.deltaTime * 10;
+            transform.position = pos;
+
+            transform.position += transform.forward * (Input.mouseScrollDelta.y * 5);
+
         }
 
         if (Input.GetKeyDown(KeyCode.F2))
         {
-            _debug = !_debug;
-            if (_debug)
+            debug = !debug;
+            if (debug)
             {
                 _prevPos = transform.position;
                 _prevRot = transform.rotation;
+                transform.position = debugPos.position;
+                transform.rotation = debugPos.rotation;
             }
             else
             {
