@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PostProcessingTest : MonoBehaviour
+public class PostProcessingDebug : MonoBehaviour
 {
     public Shader shader;
     private Material _mat;

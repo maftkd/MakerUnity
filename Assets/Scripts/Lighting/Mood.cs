@@ -20,4 +20,8 @@ public class Mood : ScriptableObject
     public Color lightColor;
     [Range(0, 20f)]
     public float lightRadius;
+
+    [Header("Volumetric fog")] 
+    public Color fogColor;
+
 }

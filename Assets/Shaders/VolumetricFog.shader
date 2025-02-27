@@ -1,4 +1,4 @@
-Shader "Hidden/PostProcessTest"
+Shader "Hidden/VolumetricFog"
 {
     Properties
     {
@@ -38,23 +38,16 @@ Shader "Hidden/PostProcessTest"
             }
 
             sampler2D _MainTex;
-            sampler2D _CameraGBufferTexture0;
-            sampler2D _CameraGBufferTexture1;
-            sampler2D _CameraGBufferTexture2;
-            sampler2D _CameraGBufferTexture3;
-
-            //tmp for debugging
             sampler2D _FogMap;
+            
+            float4 _FogColors[32];
 
             fixed4 frag (v2f i) : SV_Target
             {
-                //fixed4 fogData = tex2D(_FogMap, i.uv);
-                //return fogData;
-                fixed4 col = tex2D(_CameraGBufferTexture0, i.uv);
-                return col.a;
+                fixed4 col = tex2D(_MainTex, i.uv);
                 // just invert the colors
-                //col.rgb = 1 - col.rgb;
-                //return col;
+                col.rgb = 1 - col.rgb;
+                return col;
             }
             ENDCG
         }

@@ -12,6 +12,7 @@ public class LightingHelper : MonoBehaviour
     private Vector4[] ambientColors;
     private Vector4[] specularColors;
     private float[] glossinessValues;
+    private Vector4[] fogColors;
 
     public RoomManager roomManager;
     
@@ -52,6 +53,13 @@ public class LightingHelper : MonoBehaviour
 	        glossinessValues[i] = 0.5f;
         }
         
+        //initialize fog colors
+        fogColors = new Vector4[32];
+        for (int i = 0; i < 32; i++)
+		{
+	        fogColors[i] = Vector4.zero;
+		}
+        
         SetBasicUniforms();
         
         
@@ -73,11 +81,13 @@ public class LightingHelper : MonoBehaviour
 	        ambientColors[i] = ColorToVec4(moods[i].ambientColor);
 	        specularColors[i] = ColorToVec4(moods[i].specularColor);
 	        glossinessValues[i] = moods[i].smoothness;
+	        fogColors[i] = ColorToVec4(moods[i].fogColor);
         }
         
         Shader.SetGlobalVectorArray("_AmbientColors", ambientColors);
         Shader.SetGlobalVectorArray("_SpecularColors", specularColors);
         Shader.SetGlobalFloatArray("_GlossinessValues", glossinessValues);
+        Shader.SetGlobalVectorArray("_FogColors", fogColors);
     }
 
     public void UpdateLightingData()
