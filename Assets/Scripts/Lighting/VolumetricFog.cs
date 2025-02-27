@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class VolumetricFog : MonoBehaviour
 {
+    [SerializeField]
     public Shader shader;
     private Material _mat;
+    private Camera _cam;
 
     private void OnRenderImage(RenderTexture src, RenderTexture dest)
     {
@@ -13,6 +15,14 @@ public class VolumetricFog : MonoBehaviour
         {
             _mat = new Material(shader);
         }
+
+        if (_cam == null)
+        {
+            _cam = GetComponent<Camera>();
+        }
+        
+        Matrix4x4 inverseView = _cam.cameraToWorldMatrix;
+        _mat.SetMatrix("_InverseView", inverseView);
         
         Graphics.Blit(src, dest, _mat);
     }
