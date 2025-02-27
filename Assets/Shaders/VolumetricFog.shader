@@ -45,7 +45,6 @@ Shader "Hidden/VolumetricFog"
             sampler2D _CameraDepthTexture;
             sampler2D _MainTex;
             sampler2D _FogMap;
-            sampler2D _BlueNoise;
 
             float4x4 _InverseView;
             
@@ -54,8 +53,6 @@ Shader "Hidden/VolumetricFog"
             int _NumSteps;
 
             float4 _FogBounds;
-
-            float _Jitter;
             
             int getRoomCode(float3 worldPos)
             {
@@ -78,11 +75,17 @@ Shader "Hidden/VolumetricFog"
                     return int(round(roomCodeFrac * 255));
                 }
             }
+            
+            float rand(float2 co){
+                return frac(sin(dot(co, float2(12.9898, 78.233))) * 43758.5453);
+            }
 
             fixed4 frag (v2f i) : SV_Target
             {
                 fixed4 col = tex2D(_MainTex, i.uv);
-                fixed noise = tex2D(_BlueNoise, i.uv).r;
+                fixed noise = rand(i.uv + float2(_Time.z, _Time.z * 2));
+                noise = noise * 2 - 1;
+                //return noise;
                 //return noise;
 
                 float z = SAMPLE_DEPTH_TEXTURE(_CameraDepthTexture, i.uv);
@@ -104,8 +107,9 @@ Shader "Hidden/VolumetricFog"
                 float fog = 0;
                 float rayLength = length(rayEnd - rayStart);
                 float stepSize = rayLength / _NumSteps;
-                float randomOffset = (noise - 0.5) * _Jitter;
-                rayStart += (stepSize * 0.5f + randomOffset) * rayDir;
+                //offset ray a bit so we aren't starting at the camera position
+                rayStart += rayDir * stepSize * 0.5;
+                rayStart += noise * rayDir * stepSize;
                 for(int i = 0; i < _NumSteps; i++)
                 {
                     float t = i / float(_NumSteps);
@@ -117,7 +121,89 @@ Shader "Hidden/VolumetricFog"
                     fog += 0.05 * fogdelta * stepSize;
                 }
                 fog = saturate(fog);
-                return lerp(col, 0.5, fog);
+                return fog;
+                //return lerp(col, 0.5, fog);
+            }
+            ENDCG
+        }
+        Pass
+        {
+            CGPROGRAM
+            #pragma vertex vert
+            #pragma fragment frag
+
+            #include "UnityCG.cginc"
+
+            struct appdata
+            {
+                float4 vertex : POSITION;
+                float2 uv : TEXCOORD0;
+            };
+
+            struct v2f
+            {
+                float2 uv : TEXCOORD0;
+                float4 vertex : SV_POSITION;
+            };
+
+            v2f vert (appdata v)
+            {
+                v2f o;
+                o.vertex = UnityObjectToClipPos(v.vertex);
+                o.uv = v.uv;
+                return o;
+            }
+
+
+            sampler2D _MainTex;
+            sampler2D _FogTexture;
+            
+            fixed4 frag (v2f i) : SV_Target
+            {
+                fixed4 curFog = tex2D(_MainTex, i.uv);
+                fixed4 fog = tex2D(_FogTexture, i.uv);
+                return lerp(curFog, fog, 0.8);
+            }
+            ENDCG
+        }
+        Pass
+        {
+            CGPROGRAM
+            #pragma vertex vert
+            #pragma fragment frag
+
+            #include "UnityCG.cginc"
+
+            struct appdata
+            {
+                float4 vertex : POSITION;
+                float2 uv : TEXCOORD0;
+            };
+
+            struct v2f
+            {
+                float2 uv : TEXCOORD0;
+                float4 vertex : SV_POSITION;
+            };
+
+            v2f vert (appdata v)
+            {
+                v2f o;
+                o.vertex = UnityObjectToClipPos(v.vertex);
+                o.uv = v.uv;
+                return o;
+            }
+
+
+            sampler2D _MainTex;
+            sampler2D _FogTexture;
+            
+            fixed4 frag (v2f i) : SV_Target
+            {
+                fixed4 col = tex2D(_MainTex, i.uv);
+                fixed4 fog = tex2D(_FogTexture, i.uv);
+                col.rgb = lerp(col.rgb, fog.rgb, fog.a);
+                return col;
             }
             ENDCG
         }

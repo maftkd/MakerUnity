@@ -7000,9 +7000,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shader: {fileID: 4800000, guid: d6edbb9b2d14c4037b8644fc39251d8a, type: 3}
-  numSteps: 8
-  blueNoise: {fileID: 2800000, guid: d79cdff65a58b420db53868e157e75c9, type: 3}
-  jitter: -10
+  numSteps: 4
 --- !u!1 &971346630 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -4819223349682164798, guid: 80ed7ac95b6fe425f9d42bc3f0449085, type: 3}
