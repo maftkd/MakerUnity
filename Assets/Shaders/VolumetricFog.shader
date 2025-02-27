@@ -68,6 +68,10 @@ Shader "Hidden/VolumetricFog"
                 else
                 {
                     float roomCodeFrac = tex2Dlod(_FogMap, float4(uv, 0, 0)).r;
+                    if(roomCodeFrac >= 1)
+                    {
+                        return -1;
+                    }
                     return int(round(roomCodeFrac * 255));
                 }
             }
@@ -82,7 +86,8 @@ Shader "Hidden/VolumetricFog"
 
                 float3 worldPos = mul(_InverseView, float4(viewPos, 1)).xyz;
                 int roomCode = getRoomCode(worldPos);
-                return float(roomCode) / 255;
+                //return roomCode >= 0;
+                //return float(roomCode) / 255;
                 
                 float2 uv = (worldPos.xz - _FogBounds.xy) / _FogBounds.z;
                 //return float4(uv, 0, 1);
@@ -101,10 +106,12 @@ Shader "Hidden/VolumetricFog"
                 for(int i = 1; i <= _NumSteps; i++)
                 {
                     float t = i / float(_NumSteps);
-                    float3 samplePos = rayStart + rayDir * t;
+                    float3 samplePos = lerp(rayStart, rayEnd, t);//rayStart + rayDir * t;
+                    int rc = getRoomCode(samplePos);
 
+                    float fogdelta = rc >= 0 ? 1 : 0;
                     //temp assume there's fog everywhere
-                    fog += 0.01 * stepSize;
+                    fog += 0.05 * fogdelta * stepSize;
                 }
                 fog = saturate(fog);
                 return lerp(col, 0.5, fog);

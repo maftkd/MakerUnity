@@ -2272,7 +2272,7 @@ Camera:
   m_Enabled: 0
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
+  m_BackGroundColor: {r: 1, g: 1, b: 1, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -6973,7 +6973,7 @@ MonoBehaviour:
   orientation: {fileID: 1144568849}
   debugPos: {fileID: 1038922269}
   debug: 0
-  debugCamSpeed: 0
+  debugCamSpeed: 25
 --- !u!114 &963194230
 MonoBehaviour:
   m_ObjectHideFlags: 0
