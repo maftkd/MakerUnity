@@ -45,6 +45,7 @@ Shader "Hidden/VolumetricFog"
             sampler2D _CameraDepthTexture;
             sampler2D _MainTex;
             sampler2D _FogMap;
+            sampler2D _BlueNoise;
 
             float4x4 _InverseView;
             
@@ -53,6 +54,8 @@ Shader "Hidden/VolumetricFog"
             int _NumSteps;
 
             float4 _FogBounds;
+
+            float _Jitter;
             
             int getRoomCode(float3 worldPos)
             {
@@ -79,6 +82,8 @@ Shader "Hidden/VolumetricFog"
             fixed4 frag (v2f i) : SV_Target
             {
                 fixed4 col = tex2D(_MainTex, i.uv);
+                fixed noise = tex2D(_BlueNoise, i.uv).r;
+                //return noise;
 
                 float z = SAMPLE_DEPTH_TEXTURE(_CameraDepthTexture, i.uv);
                 
@@ -98,12 +103,10 @@ Shader "Hidden/VolumetricFog"
 
                 float fog = 0;
                 float rayLength = length(rayEnd - rayStart);
-                if(rayLength > 500)
-                {
-                    return col;
-                }
                 float stepSize = rayLength / _NumSteps;
-                for(int i = 1; i <= _NumSteps; i++)
+                float randomOffset = (noise - 0.5) * _Jitter;
+                rayStart += (stepSize * 0.5f + randomOffset) * rayDir;
+                for(int i = 0; i < _NumSteps; i++)
                 {
                     float t = i / float(_NumSteps);
                     float3 samplePos = lerp(rayStart, rayEnd, t);//rayStart + rayDir * t;
