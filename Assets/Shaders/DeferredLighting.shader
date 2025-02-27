@@ -56,14 +56,26 @@ Shader "Hidden/DeferredLighting"
                 half4 gbuffer2 = tex2D (_CameraGBufferTexture2, uv);
                 UnityStandardData data = UnityStandardDataFromGbuffer(gbuffer0, gbuffer1, gbuffer2);
 
-                // get some meta data here that we can use for room based calculations
-                half3 metaData = data.specularColor;
+                if(_LightColor.a >= 1 && abs(data.specularColor.r - 0.034) < 0.001)
+                {
+                    //global light continue
+                }
+                else if(_LightColor.a < 1 && abs(data.specularColor.r - _LightColor.a) < 0.001)
+                {
+                    //room light continue
+                }
+                else
+                {
+                    return 0;
+                }
 
+                /*
                 if(_LightColor.a < 1 && abs(data.specularColor.r - _LightColor.a) > 0.001)
                 {
                     return 0;
                 }
-                data.specularColor = half3(0.04, 0.04, 0.04);
+                */
+                data.specularColor = half3(0.034, 0.034, 0.034);
                 
                 float3 eyeVec = normalize(wpos-_WorldSpaceCameraPos);
                 half oneMinusReflectivity = 1 - SpecularStrength(data.specularColor.rgb);
