@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class VolumetricFog : MonoBehaviour
 {
-    [SerializeField]
     public Shader shader;
     private Material _mat;
     private Camera _cam;
+    [Range(1, 16)]
+    public int numSteps;
 
     private void OnRenderImage(RenderTexture src, RenderTexture dest)
     {
@@ -23,6 +24,7 @@ public class VolumetricFog : MonoBehaviour
         
         Matrix4x4 inverseView = _cam.cameraToWorldMatrix;
         _mat.SetMatrix("_InverseView", inverseView);
+        _mat.SetInt("_NumSteps", numSteps);
         
         Graphics.Blit(src, dest, _mat);
     }

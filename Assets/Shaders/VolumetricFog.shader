@@ -1,6 +1,3 @@
-// Upgrade NOTE: commented out 'float4x4 _CameraToWorld', a built-in variable
-// Upgrade NOTE: replaced '_CameraToWorld' with 'unity_CameraToWorld'
-
 Shader "Hidden/VolumetricFog"
 {
     Properties
@@ -52,6 +49,8 @@ Shader "Hidden/VolumetricFog"
             
             float4 _FogColors[32];
 
+            int _NumSteps;
+
             fixed4 frag (v2f i) : SV_Target
             {
                 fixed4 col = tex2D(_MainTex, i.uv);
@@ -61,14 +60,28 @@ Shader "Hidden/VolumetricFog"
                 float3 viewPos = i.rayDir * LinearEyeDepth(z);
 
                 float3 worldPos = mul(_InverseView, float4(viewPos, 1)).xyz;
-
-                return frac(worldPos.x);
-                return float4(frac(abs(worldPos)), 1);
                 
+                float3 rayStart = _WorldSpaceCameraPos;
+                float3 rayEnd = worldPos;
+                float3 rayDir = normalize(rayEnd - rayStart);
 
-                col.rgb = i.rayDir;
-                
-                return col;
+                float fog = 0;
+                float rayLength = length(rayEnd - rayStart);
+                if(rayLength > 500)
+                {
+                    return col;
+                }
+                float stepSize = rayLength / _NumSteps;
+                for(int i = 1; i <= _NumSteps; i++)
+                {
+                    float t = i / float(_NumSteps);
+                    float3 samplePos = rayStart + rayDir * t;
+
+                    //temp assume there's fog everywhere
+                    fog += 0.02 * stepSize;
+                }
+                fog = saturate(fog);
+                return lerp(col, 0.5, fog);
             }
             ENDCG
         }
