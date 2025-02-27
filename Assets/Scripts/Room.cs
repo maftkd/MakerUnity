@@ -18,6 +18,7 @@ public class Room : ScriptableObject
     private List<Renderer> WallRenderers;
     private AudioSource AudioSource;
     public int moodIndex;
+    public int roomIndex;
     
     //frame of reference
     public Vector3 origin;
@@ -27,12 +28,14 @@ public class Room : ScriptableObject
     public Vector3 centerOfMass;
     public List<Vector3> lightPosTemp = new();
 
-    public void Setup(GameObject floor, GameObject ceiling, List<GameObject> walls, GameObject collider)
+    public void Setup(GameObject floor, GameObject ceiling, List<GameObject> walls, GameObject collider, int index)
     {
         Floor = floor;
         Ceiling = ceiling;
         Walls = walls;
         Collider = collider;
+        
+        roomIndex = index;
 
         InitializeRenderers();
         
@@ -161,14 +164,17 @@ public class Room : ScriptableObject
         if (FloorRenderer != null)
         {
             FloorRenderer.material.SetInt("_MoodIndex", moodIndex);
+            FloorRenderer.material.SetInt("_RoomIndex", roomIndex);
         }
         if(CeilingRenderer != null)
         {
             CeilingRenderer.material.SetInt("_MoodIndex", moodIndex);
+            CeilingRenderer.material.SetInt("_RoomIndex", roomIndex);
         }
         foreach(Renderer wallRenderer in WallRenderers)
         {
             wallRenderer.material.SetInt("_MoodIndex", moodIndex);
+            wallRenderer.material.SetInt("_RoomIndex", roomIndex);
         }
         
         LightingHelper.Instance.SpawnPointLights(this, mood);

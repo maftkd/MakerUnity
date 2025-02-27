@@ -48,10 +48,10 @@ Shader "Hidden/PostProcessTest"
 
             fixed4 frag (v2f i) : SV_Target
             {
-                fixed4 fogData = tex2D(_FogMap, i.uv);
-                return fogData;
-                //fixed4 col = tex2D(_CameraGBufferTexture0, i.uv);
-                //return col.a;
+                //fixed4 fogData = tex2D(_FogMap, i.uv);
+                //return fogData;
+                fixed4 col = tex2D(_CameraGBufferTexture1, i.uv);
+                return col;
                 // just invert the colors
                 //col.rgb = 1 - col.rgb;
                 //return col;

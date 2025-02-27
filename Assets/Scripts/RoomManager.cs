@@ -68,7 +68,7 @@ public class RoomManager : MonoBehaviour
         if (floor != null && ceiling != null && walls.Count > 0 && collider != null)
         {
             Room room = ScriptableObject.CreateInstance<Room>();
-            room.Setup(floor, ceiling, walls, collider);
+            room.Setup(floor, ceiling, walls, collider, roomDictionary.Count);
             roomDictionary[roomName] = room;
         }
         else

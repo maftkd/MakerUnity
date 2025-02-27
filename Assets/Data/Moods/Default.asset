@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Default
   m_EditorClassIdentifier: 
   ambientColor: {r: 1, g: 0, b: 0, a: 0}
-  lightSourceDensity: 0.284
+  lightSourceDensity: 0.1
   lightColor: {r: 1, g: 1, b: 1, a: 0}
   lightRadius: 10
   lightIntensity: 1

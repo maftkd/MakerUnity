@@ -114,7 +114,9 @@ public class LightingHelper : MonoBehaviour
 		    
 		    Light light = pointLight.AddComponent<Light>();
 		    light.type = LightType.Point;
-		    light.color = myMood.lightColor;
+		    Color col = myMood.lightColor;
+		    col.a = room.roomIndex / 255f;
+		    light.color = col;
 		    light.range = myMood.lightRadius;
 		    light.intensity = myMood.lightIntensity;
 	    }
