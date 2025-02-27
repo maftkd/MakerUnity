@@ -1,13 +1,12 @@
-Shader "Hidden/PostProcessTest"
+Shader "Unlit/FogMap"
 {
     Properties
     {
-        _MainTex ("Texture", 2D) = "white" {}
     }
     SubShader
     {
-        // No culling or depth
-        Cull Off ZWrite Off ZTest Always
+        Tags { "RenderType"="Room" }
+        LOD 100
 
         Pass
         {
@@ -36,25 +35,13 @@ Shader "Hidden/PostProcessTest"
                 o.uv = v.uv;
                 return o;
             }
-
-            sampler2D _MainTex;
-            sampler2D _CameraGBufferTexture0;
-            sampler2D _CameraGBufferTexture1;
-            sampler2D _CameraGBufferTexture2;
-            sampler2D _CameraGBufferTexture3;
-
-            //tmp for debugging
-            sampler2D _FogMap;
+            
+            int _MoodIndex;
 
             fixed4 frag (v2f i) : SV_Target
             {
-                fixed4 fogData = tex2D(_FogMap, i.uv);
-                return fogData;
-                //fixed4 col = tex2D(_CameraGBufferTexture0, i.uv);
-                //return col.a;
-                // just invert the colors
-                //col.rgb = 1 - col.rgb;
-                //return col;
+                return _MoodIndex;
+                return fixed4(0,1,0,1);
             }
             ENDCG
         }

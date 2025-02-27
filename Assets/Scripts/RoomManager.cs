@@ -10,6 +10,8 @@ public class RoomManager : MonoBehaviour
     void Start()
     {
         InitializeRooms();
+        
+        InitializeFog();
     }
 
     void InitializeRooms()
@@ -96,6 +98,11 @@ public class RoomManager : MonoBehaviour
             roomList.Add(room);
         }
         return roomList;
+    }
+
+    void InitializeFog()
+    {
+        LightingHelper.Instance.UpdateFog();
     }
 
     //use this to visualize some data about each room

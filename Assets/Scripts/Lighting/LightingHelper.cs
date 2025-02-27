@@ -13,6 +13,10 @@ public class LightingHelper : MonoBehaviour
 
     public RoomManager roomManager;
     
+    public Camera fogCam;
+    public Shader fogMapShader;
+    private RenderTexture _fogTexture;
+    
     //#hook to auto-generate enum
 	public enum Moods
 	{
@@ -31,8 +35,12 @@ public class LightingHelper : MonoBehaviour
         {
 	        ambientColors[i] = Vector4.zero;
         }
-
         SetAmbientColors();
+        
+        // init fog
+        _fogTexture = fogCam.targetTexture;
+        Shader.SetGlobalTexture("_FogMap", _fogTexture);
+        fogCam.SetReplacementShader(fogMapShader, "RenderType");
     }
 
     Vector4 ColorToVec4(Color c)
@@ -60,6 +68,8 @@ public class LightingHelper : MonoBehaviour
 	    {
 		    SpawnPointLights(room, (Moods)room.moodIndex);
 	    }
+	    
+	    //update fog
 	    
 	    //todo - set other colors if needed?
     }
@@ -108,5 +118,10 @@ public class LightingHelper : MonoBehaviour
 		    light.range = myMood.lightRadius;
 		    light.intensity = myMood.lightIntensity;
 	    }
+    }
+
+    public void UpdateFog()
+    {
+	    fogCam.Render();
     }
 }

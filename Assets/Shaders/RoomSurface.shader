@@ -10,7 +10,7 @@ Shader "Custom/RoomSurface"
     }
     SubShader
     {
-        Tags { "RenderType"="Opaque" }
+        Tags { "RenderType"="Room" }
         LOD 200
 
         CGPROGRAM
