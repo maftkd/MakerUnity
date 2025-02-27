@@ -100,9 +100,13 @@ public class LightingHelper : MonoBehaviour
 	    {
 		    GameObject pointLight = new GameObject("Point Light");
 		    pointLight.transform.position = pos;
+		    pointLight.transform.SetParent(room.Ceiling.transform);
+		    
 		    Light light = pointLight.AddComponent<Light>();
 		    light.type = LightType.Point;
-		    pointLight.transform.SetParent(room.Ceiling.transform);
+		    light.color = myMood.lightColor;
+		    light.range = myMood.lightRadius;
+		    light.intensity = myMood.lightIntensity;
 	    }
     }
 }

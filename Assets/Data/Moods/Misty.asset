@@ -13,4 +13,7 @@ MonoBehaviour:
   m_Name: Misty
   m_EditorClassIdentifier: 
   ambientColor: {r: 0.06505874, g: 0.18194832, b: 0.3207547, a: 0}
-  lightSourceDensity: 0.009
+  lightSourceDensity: 0.043
+  lightColor: {r: 0, g: 0.98080873, b: 1, a: 0}
+  lightRadius: 13.93
+  lightIntensity: 1
