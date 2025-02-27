@@ -50,8 +50,8 @@ Shader "Hidden/PostProcessTest"
             {
                 //fixed4 fogData = tex2D(_FogMap, i.uv);
                 //return fogData;
-                fixed4 col = tex2D(_CameraGBufferTexture1, i.uv);
-                return col;
+                fixed4 col = tex2D(_CameraGBufferTexture0, i.uv);
+                return col.a;
                 // just invert the colors
                 //col.rgb = 1 - col.rgb;
                 //return col;

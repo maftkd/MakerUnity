@@ -44,11 +44,19 @@ Shader "Hidden/DeferredLighting"
                 float2 uv;
                 float atten, fadeDist;
                 UnityLight light;
+                float lightCode = _LightColor.a;
+                if(lightCode < 1)
+                {
+                    //_LightColor.a = 1;
+                }
+                //return lightCode;
                 UNITY_INITIALIZE_OUTPUT(UnityLight, light);
                 UnityDeferredCalculateLightParams (i, wpos, uv, light.dir, atten, fadeDist);
 
                 light.color = _LightColor.rgb * atten;
+                //return float4(light.color, 1);
                 //return _LightColor.a;
+                //return 0;
 
                 // unpack Gbuffer
                 half4 gbuffer0 = tex2D (_CameraGBufferTexture0, uv);
@@ -56,11 +64,13 @@ Shader "Hidden/DeferredLighting"
                 half4 gbuffer2 = tex2D (_CameraGBufferTexture2, uv);
                 UnityStandardData data = UnityStandardDataFromGbuffer(gbuffer0, gbuffer1, gbuffer2);
 
-                if(_LightColor.a >= 1 && abs(data.specularColor.r - 0.034) < 0.001)
+                float matCode = data.occlusion;
+
+                if(lightCode >= 1 && abs(matCode - 1) < 0.001)
                 {
                     //global light continue
                 }
-                else if(_LightColor.a < 1 && abs(data.specularColor.r - _LightColor.a) < 0.001)
+                else if(lightCode < 1 && abs(matCode - lightCode) < 0.002)
                 {
                     //room light continue
                 }
@@ -68,14 +78,6 @@ Shader "Hidden/DeferredLighting"
                 {
                     return 0;
                 }
-
-                /*
-                if(_LightColor.a < 1 && abs(data.specularColor.r - _LightColor.a) > 0.001)
-                {
-                    return 0;
-                }
-                */
-                data.specularColor = half3(0.034, 0.034, 0.034);
                 
                 float3 eyeVec = normalize(wpos-_WorldSpaceCameraPos);
                 half oneMinusReflectivity = 1 - SpecularStrength(data.specularColor.rgb);

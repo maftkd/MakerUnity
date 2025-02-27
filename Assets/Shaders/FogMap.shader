@@ -37,10 +37,11 @@ Shader "Unlit/FogMap"
             }
             
             int _MoodIndex;
+            int _RoomIndex;
 
             fixed4 frag (v2f i) : SV_Target
             {
-                return _MoodIndex;
+                return float(_RoomIndex) / 255;
                 return fixed4(0,1,0,1);
             }
             ENDCG
