@@ -130,7 +130,7 @@ public class LightingHelper : MonoBehaviour
 	    foreach (Vector3 pos in room.lightPosTemp)
 	    {
 		    GameObject pointLight = new GameObject("Point Light");
-		    pointLight.transform.position = pos;
+		    pointLight.transform.position = pos + Vector3.down * 0.5f;
 		    pointLight.transform.SetParent(room.Ceiling.transform);
 		    
 		    Light light = pointLight.AddComponent<Light>();
