@@ -5,6 +5,11 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Mood")]
 public class Mood : ScriptableObject
 {
+    [Header("Surface")]
+    public Color specularColor;
+    [Range(0, 1)]
+    public float smoothness;
+    
     [Header("Ambient lighting")]
     public Color ambientColor;
     

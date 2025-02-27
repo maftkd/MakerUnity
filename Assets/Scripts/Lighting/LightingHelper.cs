@@ -10,6 +10,8 @@ public class LightingHelper : MonoBehaviour
     public static LightingHelper Instance;
 
     private Vector4[] ambientColors;
+    private Vector4[] specularColors;
+    private float[] glossinessValues;
 
     public RoomManager roomManager;
     
@@ -35,7 +37,23 @@ public class LightingHelper : MonoBehaviour
         {
 	        ambientColors[i] = Vector4.zero;
         }
-        SetAmbientColors();
+        
+        //initialize specular colors
+        specularColors = new Vector4[32];
+        for (int i = 0; i < 32; i++)
+        {
+	        specularColors[i] = Vector4.zero;
+        }
+        
+        //initialize glossiness values
+        glossinessValues = new float[32];
+        for (int i = 0; i < 32; i++)
+        {
+	        glossinessValues[i] = 0.5f;
+        }
+        
+        SetBasicUniforms();
+        
         
         // init fog
         _fogTexture = fogCam.targetTexture;
@@ -48,20 +66,23 @@ public class LightingHelper : MonoBehaviour
 	    return new Vector4(c.r, c.g, c.b, c.a);
     }
 
-    void SetAmbientColors()
+    void SetBasicUniforms()
     {
         for (int i = 0; i < moods.Length && i < 32; i++)
         {
 	        ambientColors[i] = ColorToVec4(moods[i].ambientColor);
+	        specularColors[i] = ColorToVec4(moods[i].specularColor);
+	        glossinessValues[i] = moods[i].smoothness;
         }
         
         Shader.SetGlobalVectorArray("_AmbientColors", ambientColors);
-	    
+        Shader.SetGlobalVectorArray("_SpecularColors", specularColors);
+        Shader.SetGlobalFloatArray("_GlossinessValues", glossinessValues);
     }
 
     public void UpdateLightingData()
     {
-	    SetAmbientColors();
+	    SetBasicUniforms();
 	    
 	    // reposition lights
 	    foreach (Room room in roomManager.GetRoomList())
